@@ -35,6 +35,14 @@ endif()
 
 set(CMAKE_SKIP_INSTALL_ALL_DEPENDENCY ON)
 
+# add_library(NTL STATIC IMPORTED)
+# add_library(M STATIC IMPORTED)
+# add_library(GMP STATIC IMPORTED)
+find_library(NTL_LIB ntl)
+find_library(M_LIB m)
+find_library(GMP_LIB libgmp.a)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 # basic setting
 include(Options)
 configure_project()

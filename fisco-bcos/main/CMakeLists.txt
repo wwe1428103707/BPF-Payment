@@ -22,6 +22,15 @@
 file(GLOB SRC_LIST "*.cpp")
 file(GLOB HEADERS "*.h")
 
+find_library(NTL_LIB libntl.a)
+
+
+find_library(M_LIB m)
+
+
+find_library(GMP_LIB libgmp.a)
+set(THREADS_PREFER_PTHREAD_FLAG ON)
+find_package(Threads REQUIRED)
 add_executable(fisco-bcos main.cpp ${HEADERS})
 target_include_directories(fisco-bcos PRIVATE ..)
 target_link_libraries(fisco-bcos PUBLIC initializer TCMalloc)
@@ -33,3 +42,4 @@ if (TOOL)
     target_link_libraries(fisco-sync PUBLIC initializer storage)
     install(TARGETS fisco-sync DESTINATION bin)
 endif()
+

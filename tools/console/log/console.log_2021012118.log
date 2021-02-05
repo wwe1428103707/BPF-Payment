@@ -1,0 +1,20 @@
+[ERROR] [2021-01-21 18:25:21] ChannelHandler.userEventTriggered(58) |  idle state event:READER_IDLE connect127.0.0.1:20201 long time Inactive, disconnect
+[DEBUG] [2021-01-21 18:25:21] ChannelHandler.channelInactive(128) |  channelInactive, disconnect 127.0.0.1:20201 ,true
+[DEBUG] [2021-01-21 18:25:21] ConnectionManager.removeConnectionContext(420) |  result: true, host: 127.0.0.1, port: 20201, ctx: 248836915
+[DEBUG] [2021-01-21 18:25:21] ChannelMsgHandler.onDisconnect(163) | onDisconnect in ChannelMsgHandler called, host : 127.0.0.1:20201
+[DEBUG] [2021-01-21 18:25:21] BlockNumberNotifyHandler.onDisconnect(97) | onDisconnect, endpoint: 127.0.0.1:20201
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[DEBUG] [2021-01-21 18:25:21] GroupServiceImpl.resetLatestBlockNumber(161) | g:1, resetLatestBlockNumber, latestBlockNumber: 58, nodeWithLatestBlockNumber:[], maxBlockNumber: 58
+[DEBUG] [2021-01-21 18:25:21] GroupServiceImpl.removeNode(67) | g:1, removeNode=127.0.0.1:20201, blockNumberInfoSize=1, latestBlockNumber:58
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[INFO] [2021-01-21 18:25:21] EventPushMsgHandler.onDisconnect(90) |  filter connection disconnect
+[DEBUG] [2021-01-21 18:25:21] TopicManager.updateBlockNotify(158) | update block notify, peer: 127.0.0.1:20201, groupInfo: [1]
+[DEBUG] [2021-01-21 18:25:21] TopicManager.updateBlockNotify(163) | add block notify, peer: 127.0.0.1:20201, topic: _block_notify_1
+[INFO] [2021-01-21 18:25:21] AmopImp.sendSubscribe(216) | update subscribe inform 1 peers
+[DEBUG] [2021-01-21 18:25:21] AmopImp.updateSubscribeToPeer(238) | update topics to node, node:127.0.0.1:20200, topics:["_block_notify_1"]

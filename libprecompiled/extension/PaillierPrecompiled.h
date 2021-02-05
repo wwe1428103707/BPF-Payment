@@ -22,6 +22,8 @@
 #pragma once
 #include <libblockverifier/ExecutiveContext.h>
 #include <libprecompiled/Common.h>
+#include <NTL/ZZ.h>
+#include <NTL/ZZ_pXFactoring.h>
 
 class CallPaillier;
 namespace dev
@@ -32,6 +34,7 @@ namespace precompiled
 contract Paillier 
 {
     function paillierAdd(string cipher1, string cipher2) public constant returns(string);
+    function paillierEnc(string cihper, string random) public constant returns(string);
 }
 #endif
 
@@ -45,6 +48,10 @@ public:
     PrecompiledExecResult::Ptr call(std::shared_ptr<dev::blockverifier::ExecutiveContext> context,
         bytesConstRef param, Address const& origin = Address(),
         Address const& sender = Address()) override;
+
+    // std::string paillierEnc(std::string& message, std::string& random, std::string& generator, std::string& modulus);
+    // NTL::ZZ paillierEnc(const NTL::ZZ& message, const NTL::ZZ& random, const NTL::ZZ& generator, const NTL::ZZ& modulus);
+    
 
 private:
     std::shared_ptr<CallPaillier> m_callPaillier;

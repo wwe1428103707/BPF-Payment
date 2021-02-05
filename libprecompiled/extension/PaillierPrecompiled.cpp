@@ -24,17 +24,40 @@
 #include <libethcore/ABI.h>
 #include <paillier/callpaillier.h>
 #include <string>
+// #include <NTL/ZZ.h>
+// #include <NTL/ZZ_pXFactoring.h>
+// #include <sstream>
 
 using namespace dev;
 using namespace dev::blockverifier;
 using namespace dev::precompiled;
-
 const char* const PAILLIER_METHOD_SET_STR = "paillierAdd(string,string)";
+// const char* const PAILLIER_METHOD_SET_STR = "paillierEnc(string, string, string, string)";
 
 PaillierPrecompiled::PaillierPrecompiled() : m_callPaillier(std::make_shared<CallPaillier>())
 {
     name2Selector[PAILLIER_METHOD_SET_STR] = getFuncSelector(PAILLIER_METHOD_SET_STR);
+    // name2Selector[PAILLIER_METHOD_SET] = getFuncSelector(PAILLIER_METHOD_SET);
 }
+
+// NTL::ZZ PaillierPrecompiled::PaillierPrecompiled::paillierEnc(const NTL::ZZ& message, const NTL::ZZ& random, const NTL::ZZ& generator, const NTL::ZZ& modulus) {
+//     NTL::ZZ ciphertext =
+//         NTL::PowerMod(generator, message, modulus * modulus) *
+//         NTL::PowerMod(random, modulus, modulus * modulus);
+//     return ciphertext % (modulus * modulus);
+// }
+
+// std::string PaillierPrecompiled::PaillierPrecompiled::paillierEnc(std::string& message, std::string& random, std::string& generator, std::string& modulus)
+// {
+//     NTL::ZZ message_zz = NTL::conv<NTL::ZZ>( message.c_str());
+//     NTL::ZZ random_zz = NTL::conv<NTL::ZZ>(random.c_str());
+//     NTL::ZZ generator_zz = NTL::conv<NTL::ZZ>(generator.c_str());
+//     NTL::ZZ modulus_zz = NTL::conv<NTL::ZZ>(modulus.c_str());
+//     NTL::ZZ result = paillierEnc(message_zz, random_zz, generator_zz, modulus_zz);
+//     std::stringstream buffer;
+//     buffer << result;
+//     return buffer.str();
+// }
 
 PrecompiledExecResult::Ptr PaillierPrecompiled::call(
     ExecutiveContext::Ptr, bytesConstRef param, Address const&, Address const&)
@@ -57,7 +80,9 @@ PrecompiledExecResult::Ptr PaillierPrecompiled::call(
         std::string result;
         try
         {
-            result = m_callPaillier->paillierAdd(cipher1, cipher2);
+            std::string generator = "10";
+            std::string modulus = "65537";
+            result = m_callPaillier->paillierEnc(generator, modulus, cipher1, cipher2);
             callResult->gasPricer()->appendOperation(InterfaceOpcode::PaillierAdd);
         }
         catch (CallException& e)
@@ -70,6 +95,29 @@ PrecompiledExecResult::Ptr PaillierPrecompiled::call(
         }
         callResult->setExecResult(abi.abiIn("", result));
     }
+    // if (func == name2Selector[PAILLIER_METHOD_SET_STR])
+    // {
+    //     std::string cipher;
+    //     std::string random;
+    //     std::string generator;
+    //     std::string modulus;
+    //     abi.abiOut(data, cipher, random, generator, modulus);
+    //     std::string result1;
+    //     try
+    //     {
+    //         result1 = m_callPaillier->paillierEnc(cipher, random, generator, modulus);
+    //         callResult->gasPricer()->appendOperation(InterfaceOpcode::PaillierEnc);
+    //     }
+    //     catch (CallException& e)
+    //     {
+    //         PRECOMPILED_LOG(ERROR)
+    //             << LOG_BADGE("PaillierPrecompiled") << LOG_DESC(std::string(e.what()))
+    //             << LOG_KV("cipher", cipher) << LOG_KV("random", random) << LOG_KV("generator", generator) << LOG_KV("modulus", modulus);
+    //         getErrorCodeOut(callResult->mutableExecResult(), CODE_INVALID_CIPHERS);
+    //         return callResult;
+    //     }
+    //     callResult->setExecResult(abi.abiIn("", result1));
+    // }
     else
     {
         PRECOMPILED_LOG(ERROR) << LOG_BADGE("PaillierPrecompiled")
